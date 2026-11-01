@@ -1,0 +1,23 @@
+[project]
+name = "basicdaw"
+version = "1.0.0"
+description = "BasicDAW - a browser-based DAW with online instruments and Midinous integration"
+requires-python = ">=3.11"
+dependencies = [
+    "python-rtmidi>=1.5",
+]
+
+[dependency-groups]
+# the desktop window (./desktop.sh) - Qt WebEngine is Chromium, so the app behaves as it does in Chrome
+desktop = [
+    "PyQt6>=6.7",
+    "PyQt6-WebEngine>=6.7",
+    "certifi",
+]
+# packaging (./build.sh)
+build = [
+    "pyinstaller>=6.10",
+]
+
+[tool.uv]
+package = false

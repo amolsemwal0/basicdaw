@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- BasicDAW icon: a disc with BASICDAW around it. Source with live text (Noto Sans Black);
+       packaging/make-icons.sh turns the text into outlines and renders every icon file from it. -->
+  <defs>
+    <radialGradient id="disc" cx="256" cy="256" r="244" gradientUnits="userSpaceOnUse">
+      <stop offset="0.35" stop-color="#2a2e66"/>
+      <stop offset="1" stop-color="#101227"/>
+    </radialGradient>
+    <linearGradient id="rim" x1="40" y1="40" x2="472" y2="472" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#c084fc"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="0" y1="30" x2="0" y2="482" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#dde3ff"/>
+    </linearGradient>
+    <linearGradient id="fanA" x1="256.0" y1="86.0" x2="415.7" y2="197.9" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#a78bfa" stop-opacity="0"/><stop offset="0.5" stop-color="#a78bfa" stop-opacity="0.7"/><stop offset="1" stop-color="#a78bfa" stop-opacity="0"/></linearGradient>
+    <linearGradient id="fanB" x1="256.0" y1="426.0" x2="96.3" y2="314.1" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#22d3ee" stop-opacity="0"/><stop offset="0.5" stop-color="#22d3ee" stop-opacity="0.7"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></linearGradient>
+    <linearGradient id="fanC" x1="314.1" y1="96.3" x2="386.2" y2="146.7" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffffff" stop-opacity="0"/><stop offset="0.5" stop-color="#ffffff" stop-opacity="0.7"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="fanD" x1="197.9" y1="415.7" x2="125.8" y2="365.3" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#c4b5fd" stop-opacity="0"/><stop offset="0.5" stop-color="#c4b5fd" stop-opacity="0.7"/><stop offset="1" stop-color="#c4b5fd" stop-opacity="0"/></linearGradient>
+  </defs>
+  <path d="M12 256a244 244 0 1 0 488 0a244 244 0 1 0 -488 0ZM226 256a30 30 0 1 0 60 0a30 30 0 1 0 -60 0Z" fill="url(#disc)" fill-rule="evenodd"/>
+  <path d="M256.0 16.0A240 240 0 0 1 481.5 173.9L350.0 221.8A100 100 0 0 0 256.0 156.0Z" fill="url(#fanA)"/>
+  <path d="M256.0 496.0A240 240 0 0 1 30.5 338.1L162.0 290.2A100 100 0 0 0 256.0 356.0Z" fill="url(#fanB)"/>
+  <path d="M338.1 30.5A240 240 0 0 1 439.9 101.7L332.6 191.7A100 100 0 0 0 290.2 162.0Z" fill="url(#fanC)"/>
+  <path d="M173.9 481.5A240 240 0 0 1 72.1 410.3L179.4 320.3A100 100 0 0 0 221.8 350.0Z" fill="url(#fanD)"/>
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.045" stroke-width="1.2"><circle cx="256" cy="256" r="108"/><circle cx="256" cy="256" r="113"/><circle cx="256" cy="256" r="118"/><circle cx="256" cy="256" r="123"/><circle cx="256" cy="256" r="128"/><circle cx="256" cy="256" r="133"/><circle cx="256" cy="256" r="138"/><circle cx="256" cy="256" r="143"/><circle cx="256" cy="256" r="148"/><circle cx="256" cy="256" r="153"/><circle cx="256" cy="256" r="158"/><circle cx="256" cy="256" r="163"/><circle cx="256" cy="256" r="168"/><circle cx="256" cy="256" r="173"/><circle cx="256" cy="256" r="178"/><circle cx="256" cy="256" r="183"/><circle cx="256" cy="256" r="188"/><circle cx="256" cy="256" r="193"/><circle cx="256" cy="256" r="198"/><circle cx="256" cy="256" r="203"/><circle cx="256" cy="256" r="208"/><circle cx="256" cy="256" r="213"/><circle cx="256" cy="256" r="218"/><circle cx="256" cy="256" r="223"/><circle cx="256" cy="256" r="228"/><circle cx="256" cy="256" r="233"/></g>
+  <circle cx="256" cy="256" r="240.5" fill="none" stroke="url(#rim)" stroke-width="7"/>
+  <g font-family="Noto Sans" font-weight="900" font-size="104" text-anchor="middle">
+    <g fill="#0b0d18" stroke="#0b0d18" stroke-width="12" stroke-linejoin="round">
+      <text x="256" y="106" transform="rotate(220.000 256 256)">B</text>
+      <text x="256" y="106" transform="rotate(260.000 256 256)">A</text>
+      <text x="256" y="106" transform="rotate(300.000 256 256)">S</text>
+      <text x="256" y="106" transform="rotate(340.000 256 256)">I</text>
+      <text x="256" y="106" transform="rotate(380.000 256 256)">C</text>
+      <text x="256" y="106" transform="rotate(420.000 256 256)">D</text>
+      <text x="256" y="106" transform="rotate(460.000 256 256)">A</text>
+      <text x="256" y="106" transform="rotate(500.000 256 256)">W</text>
+    </g>
+    <g fill="url(#ink)">
+      <text x="256" y="106" transform="rotate(220.000 256 256)">B</text>
+      <text x="256" y="106" transform="rotate(260.000 256 256)">A</text>
+      <text x="256" y="106" transform="rotate(300.000 256 256)">S</text>
+      <text x="256" y="106" transform="rotate(340.000 256 256)">I</text>
+      <text x="256" y="106" transform="rotate(380.000 256 256)">C</text>
+      <text x="256" y="106" transform="rotate(420.000 256 256)">D</text>
+      <text x="256" y="106" transform="rotate(460.000 256 256)">A</text>
+      <text x="256" y="106" transform="rotate(500.000 256 256)">W</text>
+    </g>
+  </g>
+  <circle cx="256" cy="440" r="11" fill="#0b0d18"/>
+  <circle cx="256" cy="440" r="8.5" fill="#22d3ee"/>
+  <path d="M158 256a98 98 0 1 0 196 0a98 98 0 1 0 -196 0ZM226 256a30 30 0 1 0 60 0a30 30 0 1 0 -60 0Z" fill="#ffffff" fill-opacity="0.09" fill-rule="evenodd"/>
+  <circle cx="256" cy="256" r="98" fill="none" stroke="#ffffff" stroke-opacity="0.22" stroke-width="2.5"/>
+  <path d="M194 256a62 62 0 1 0 124 0a62 62 0 1 0 -124 0ZM226 256a30 30 0 1 0 60 0a30 30 0 1 0 -60 0Z" fill="#1a1d40" fill-rule="evenodd"/>
+  <circle cx="256" cy="256" r="62" fill="none" stroke="url(#rim)" stroke-width="3"/>
+  <circle cx="256" cy="256" r="31.5" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="3"/>
+</svg>

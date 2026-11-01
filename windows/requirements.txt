@@ -1,0 +1,6 @@
+# What the Windows build installs into its own Python (see build-on-linux.sh / build.ps1).
+PyQt6>=6.7
+PyQt6-WebEngine>=6.7
+python-rtmidi>=1.5
+certifi
+pyinstaller>=6.10

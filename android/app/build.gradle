@@ -1,0 +1,102 @@
+// BasicDAW for Android: the shared web app and server.py (from the folder above) run on Chaquopy's Python,
+// and MainActivity shows them in a WebView.
+plugins {
+    id "com.android.application"
+    id "com.chaquo.python"
+}
+
+def basicdaw = rootDir.parentFile  // the basicdaw folder: server.py, web/, pyproject.toml
+def appVersion = (new File(basicdaw, "pyproject.toml").text =~ /(?m)^version = "(.+)"/)[0][1]
+def staged = layout.buildDirectory.dir("basicdaw-python").get().asFile
+def downloads = layout.buildDirectory.dir("downloads").get().asFile
+// ffmpeg.wasm encodes MP3 / OGG / FLAC / Opus / M4A in the page: there is no ffmpeg program on Android.
+def wasm = ["ffmpeg": "0.12.15", "core": "0.12.10"]
+
+android {
+    namespace "com.basicdaw.app"
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.basicdaw.app"
+        minSdk 29  // saving to Download/ through MediaStore needs no storage permission from Android 10 on
+        targetSdk 35
+        versionName appVersion
+        versionCode appVersion.tokenize(".").collect { it as int }.inject(0) { acc, n -> acc * 100 + n }
+        ndk {
+            abiFilters "arm64-v8a", "x86_64"  // phones and tablets, emulators
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    // build.sh makes this key on the first build; updates must be signed with the same one.
+    def keys = rootProject.file("signing/keystore.properties")
+    if (keys.exists()) {
+        def p = new Properties()
+        keys.withInputStream { p.load(it) }
+        signingConfigs {
+            release {
+                storeFile rootProject.file("signing/${p.storeFile}")
+                storePassword p.storePassword
+                keyAlias p.keyAlias
+                keyPassword p.keyPassword
+            }
+        }
+        buildTypes.release.signingConfig signingConfigs.release
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+chaquopy {
+    defaultConfig {
+        version = "3.13"
+        if (project.hasProperty("buildPython")) buildPython(project.property("buildPython"))
+    }
+    sourceSets {
+        getByName("main") {
+            srcDir(staged)
+        }
+    }
+}
+
+tasks.register("fetchFfmpegWasm") {
+    outputs.dir(downloads)
+    doLast {
+        wasm.each { name, version ->
+            def tgz = new File(downloads, "${name}-${version}.tgz")
+            if (!tgz.exists()) {
+                downloads.mkdirs()
+                new URL("https://registry.npmjs.org/@ffmpeg/${name}/-/${name}-${version}.tgz").withInputStream { input ->
+                    tgz.withOutputStream { it << input }
+                }
+            }
+        }
+    }
+}
+
+// server.py and web/ come from the shared folder, so every platform runs the same app.
+tasks.register("stageBasicDAW", Sync) {
+    dependsOn "fetchFfmpegWasm"
+    into staged
+    from(basicdaw) {
+        include "server.py", "web/**"
+    }
+    from({ tarTree(resources.gzip(new File(downloads, "ffmpeg-${wasm.ffmpeg}.tgz"))) }) {
+        include "package/dist/esm/*.js"
+        eachFile { path = "web/vendor/ffmpeg/ffmpeg/${name}" }
+    }
+    from({ tarTree(resources.gzip(new File(downloads, "core-${wasm.core}.tgz"))) }) {
+        include "package/dist/esm/ffmpeg-core.*", "package/LICENSE*"
+        eachFile { path = "web/vendor/ffmpeg/core/${name}" }
+    }
+    includeEmptyDirs = false
+}
+tasks.named("preBuild") { dependsOn "stageBasicDAW" }
+tasks.configureEach { if (name.contains("Python")) dependsOn "stageBasicDAW" }

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=BasicDAW
+GenericName=Digital Audio Workstation
+Comment=Make music with online instruments, a piano roll and Midinous
+Exec=basicdaw
+Icon=basicdaw
+Terminal=false
+Categories=AudioVideo;Audio;Midi;Sequencer;
+Keywords=music;midi;daw;piano roll;sequencer;
+StartupWMClass=basicdaw
