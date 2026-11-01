@@ -22,11 +22,12 @@ A digital audio workstation with online instruments and a live link to
 ## Start
 
 ```fish
-basicdaw          # the installed desktop app (or "BasicDAW" in the app menu)
-
-cd ~/GameDev/Music/Projects/basicdaw
+git clone https://github.com/amolsemwal0/basicdaw.git
+cd basicdaw
 ./desktop.sh        # desktop app, from source
 ./run.sh            # in the browser: opens http://localhost:8765
+
+basicdaw            # the installed desktop app (or "BasicDAW" in the app menu), see Desktop app
 ```
 
 `run.sh` uses `uv` to install `python-rtmidi` (the ALSA MIDI bridge) into `.venv` on the first run.
