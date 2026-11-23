@@ -11,7 +11,6 @@ cd "$(dirname "$0")"
 
 JDK_URL=https://api.adoptium.net/v3/binary/latest/21/ga/linux/x64/jdk/hotspot/normal/eclipse
 SDK_TOOLS_URL=https://dl.google.com/android/repository/commandlinetools-linux-15859902_latest.zip
-GRADLE_VERSION=8.14.3
 SDK_PACKAGES=("platforms;android-35" "build-tools;35.0.0" "platform-tools")
 VERSION=$(sed -n 's/^version = "\(.*\)"/\1/p' ../pyproject.toml)
 
@@ -59,12 +58,8 @@ for pkg in "${SDK_PACKAGES[@]}"; do
   [[ -d "$ANDROID_HOME/${pkg//;//}" ]] || "$SDKMANAGER" --sdk_root="$ANDROID_HOME" --install "$pkg" >/dev/null
 done
 
-# Gradle
-GRADLE=$TOOLS/gradle-$GRADLE_VERSION/bin/gradle
-if [[ ! -x "$GRADLE" ]]; then
-  fetch "https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip" "$TOOLS/gradle.zip"
-  unzip -q -o "$TOOLS/gradle.zip" -d "$TOOLS"
-fi
+# Gradle: ./gradlew downloads the version pinned in gradle/wrapper/gradle-wrapper.properties (and checks its
+# SHA-256) into GRADLE_USER_HOME. The wrapper is also how GitHub's CodeQL scan learns which Gradle to use.
 export GRADLE_USER_HOME=$TOOLS/gradle-home
 
 # Signing key for release builds (made once; back up android/signing/)
@@ -82,7 +77,7 @@ fi
 args=()
 if command -v uv >/dev/null 2>&1 && py=$(uv python find 3.13 2>/dev/null); then args+=("-PbuildPython=$py"); fi
 echo "building the $VARIANT APK (Gradle)"
-"$GRADLE" --quiet --project-dir . "${args[@]}" "assemble${VARIANT^}"
+./gradlew --quiet "${args[@]}" "assemble${VARIANT^}"
 
 mkdir -p dist
 suffix=$([[ $VARIANT == debug ]] && echo "-debug" || true)
