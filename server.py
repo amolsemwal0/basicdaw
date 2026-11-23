@@ -1079,15 +1079,17 @@ class Handler(BaseHTTPRequestHandler):
             self._fail(exc)
 
     def _static(self, path: str) -> None:
-        rel = path.lstrip("/") or "index.html"
-        target = (WEB_DIR / rel).resolve()
-        if WEB_DIR.resolve() not in target.parents and target != WEB_DIR.resolve():
+        # realpath + startswith(root + sep) is the containment check CodeQL recognises; realpath also follows
+        # symlinks, so a link inside web/ that points elsewhere is refused too.
+        root = os.path.realpath(WEB_DIR)
+        target = os.path.realpath(os.path.join(root, path.lstrip("/") or "index.html"))
+        if not target.startswith(root + os.sep):
             raise ApiError(404, "Not found")
-        if target.is_dir():
-            target = target / "index.html"
-        if not target.is_file():
+        if os.path.isdir(target):
+            target = os.path.join(target, "index.html")
+        if not os.path.isfile(target):
             raise ApiError(404, "Not found")
-        self._file(target)
+        self._file(Path(target))
 
     def _api(self, method: str, parts: list[str], query: dict) -> None:
         a = APP

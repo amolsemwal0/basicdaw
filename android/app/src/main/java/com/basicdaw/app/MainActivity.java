@@ -102,10 +102,10 @@ public class MainActivity extends Activity {
                         .callAttr("start", getApplicationContext(), PORT).toInt();
                 runOnUiThread(() -> web.loadUrl("http://127.0.0.1:" + port + "/"));
             } catch (Exception e) {
-                Log.e(TAG, "server did not start", e);
-                String msg = String.valueOf(e.getMessage()).replace("<", "&lt;");
+                Log.e(TAG, "server did not start", e); // full details stay in logcat, not on screen
                 runOnUiThread(() -> web.loadDataWithBaseURL(null, STARTING.replace("Starting BasicDAW…",
-                        "BasicDAW could not start: " + msg), "text/html", "utf-8", null));
+                        "BasicDAW could not start. Details are in the device log (adb logcat -s BasicDAW)."),
+                        "text/html", "utf-8", null));
             }
         }, "basicdaw-start").start();
     }
